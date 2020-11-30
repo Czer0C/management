@@ -3,6 +3,7 @@ import { timeStamp } from 'console';
 import { Task, TaskStatus } from './task.model';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateTaskDTO } from './DTO/create-task.dto';
+import { UpdateTaskDTO } from './DTO/update-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -10,6 +11,10 @@ export class TasksService {
 
   getAllTasks(): Task[] {
     return this.tasks; 
+  }
+
+  getTaskById(id: string): Task {
+    return this.tasks.find(task => task.id === id);
   }
 
   createTask(createTaskDTO: CreateTaskDTO): Task {
@@ -25,5 +30,23 @@ export class TasksService {
     this.tasks.push(task);
 
     return task;
+  }
+
+  updateTask(id: string, status: TaskStatus): Task {
+    let task = this.getTaskById(id);
+    console.log(status);
+    task.status = status;
+    return task;
+  }
+
+  deleteTask(id: string): Task {
+    for (let i = 0; i < this.tasks.length; i++) {
+      if (this.tasks[i].id === id) {
+        let task = this.tasks[i];
+        this.tasks.splice(i, 1);
+
+        return task;
+      }
+    }
   }
 }
