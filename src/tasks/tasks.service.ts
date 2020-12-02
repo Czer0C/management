@@ -3,9 +3,16 @@ import { timeStamp } from 'console';
 import { CreateTaskDTO } from './DTO/create-task.dto';
 import { UpdateTaskDTO } from './DTO/update-task.dto';
 import { GetTasksFilterDTO } from './DTO/get-tasks-filter.dto';
+import { TaskRepository } from './task.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Task } from './task.entity';
 
 @Injectable()
 export class TasksService {
+  constructor (
+    @InjectRepository(TaskRepository)
+    private taskRepository: TaskRepository,
+  ){} 
   // private tasks: Task[] = [];
 
   // getAllTasks(): Task[] {
@@ -31,15 +38,16 @@ export class TasksService {
   //   return tasks;
   // }
 
-  // getTaskById(id: string): Task {
-  //   const find = this.tasks.find(task => task.id === id);
 
-  //   if (!find) {
-  //     throw new NotFoundException(  );
-  //   }
+  async getTaskById(id: number): Promise<Task> {
+    const task = await this.taskRepository.findOne(id);
 
-  //   return find;
-  // }
+    if (!task) {
+      throw new NotFoundException();
+    }
+
+    return task;
+  }
 
   // createTask(createTaskDTO: CreateTaskDTO): Task {
   //   const { title, description } = createTaskDTO;
