@@ -1,7 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { timeStamp } from 'console';
 import { CreateTaskDTO } from './DTO/create-task.dto';
-import { UpdateTaskDTO } from './DTO/update-task.dto';
 import { GetTasksFilterDTO } from './DTO/get-tasks-filter.dto';
 import { TaskRepository } from './task.repository';
 import { InjectRepository } from '@nestjs/typeorm';
