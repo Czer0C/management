@@ -5,4 +5,4 @@ db:
   synchronize: true
 
 jwt:
-  secret: 'Mana is my wife'
+  secret: 'Tsukuyomi Mana'
